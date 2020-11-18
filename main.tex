@@ -29,6 +29,7 @@
 \begin{frame}
 \maketitle
 \end{frame}
+%todo: add background photo from https://bygl.osu.edu/sites/default/files/field/image/tar%20spot%20punctatum%203%20%20S%20Fair%208-20-16.jpg to the title page it has a good photo of fungal pathagen
 
 \AtBeginSection[]  % A frame titled `Content' is added before every new section starts.
 {
@@ -41,150 +42,54 @@
 
 % Section `Introduction'; sections are defined outside of frames. They may lead to the automatic inclusion of additional frames, see above.
 \section{Introduction}
+\begin{frame}{Motivation and description}
+    \begin{itemize}
+        \item We want to see under which fitness circumstances a specific fungal pathogen. 
+        \item By fitness circumstance we are referring to how the fungus acts in nature, which one is stronger and can spread the most on a plant.
+        \item We want to see under which circumstance one defeats the other, which one wins, and the general conditions in which there is a tie.
+    \end{itemize}
+\end{frame}
 
-% \begin{frame}
+\section{Math and Methods}
+\begin{frame}{Methods}
+\begin{itemize}
+    \item Long story short, it is impossible to model this precisely, so we must use a numerical method to conduct the model.
+    \item We used a program called ROC-HJ
+\end{itemize}
+\end{frame}
 
-% This is the first frame of the introduction.
+\begin{frame}{Mathematical statements}
+    The following are some crucial functions that are needed to be passed into ROC-HJ
+\end{frame}
 
-% \end{frame}
+\begin{frame}{Hamilton-Jacobi equations}
+    The equations from the functions above create a system of Hamilton-Jacobi Equations
+\end{frame}
 
-% % Section `Results'
-% \section{Definitions and Examples}
+\section{Execution and Code}
+\begin{frame}{Code}
+    This is how we converted the Hamilton Jacobi to be used in the computer
+\end{frame}
 
-% \begin{frame}{Timed itemize command}  % Optional title argument
+\begin{frame}{Output}
+    
+\end{frame}
 
-% This frame contains an example of a list that is internally broken down into 5 sub-frames.
+\section{Graphs and Analysis}
+\begin{frame}{Graphs}
+    
+\end{frame}
 
-% \begin{itemize}
-% \item<2-> appears from slide 2 on
-% \item<4-> appears from slide 4 on
-% \item<3-> appears from slide 3 on
-% \item<2-3> appears between slides 2 and 3
-% \item<5-> appears from slide 5 on
-% \end{itemize}
-% \end{frame}
+\section{Conclusion}
+\begin{frame}{Conclusion}
+    
+\end{frame}
 
-% \begin{frame}
-% It is often sufficient to use the simpler syntax with the pause command before each item. This leads to the following structure.
-
-% \begin{itemize}
-% \pause \item Beamer is a wonderful class
-% \pause \item One can $x$ make animations
-% \pause \item One uses the \textbf{pause} command, for example
-% \pause \item in order to bring in important ideas
-% \end{itemize}
-
-% \end{frame}
-
-% \begin{frame}
-% \begin{itemize}
-% \item Thomas Stieltjes and his mass distributions
-% \pause \item Used $\phi (x)$ to indicate total mass less than or equal to $x$.
-% \pause \item Picture of this distribution on the real line
-% \end{itemize}
-% \end{frame}
-
-% \begin{frame}
-
-% A similar way of presenting slides can be achieved using the {\it uncover} and the {\it only} command. These are used outside of lists.
-
-% \medskip
-
-% \uncover<2->
-% {appear from slide 2 on } \uncover<3-4> {appears from 3 to slide 4\\}
-% \uncover<4>{appears on slide 4\\}
-% \uncover<3->{appears from slide 3 on\\}
-% \end{frame}
-
-% \begin{frame}{Theorems}
-
-
-% \begin{theorem} Sample theorem.
-% \end{theorem}
-
-% \end{frame}
-
-
-% % Section `Examples'
-% \section{Results}
-
-% \begin{frame}
-
-% \begin{block}{Block title}
-% This is a block in blue
-% \end{block}
-
-% \begin{alertblock}{Alert-block title}
-% This is a block in red
-% \end{alertblock}
-
-% \begin{exampleblock}{Example-block title}
-% This is a block in green
-% \end{exampleblock}
-% \end{frame}
-
-% \begin{frame}{Alerts in uncovering}
-
-% \begin{itemize}
-% \item<1-| alert@1> First point.
-% \item<2-| alert@2> Second point.
-% \item<3-| alert@3> Third point.
-% \end{itemize}
-
-% \end{frame}
-
-% \begin{frame}
-
-% \begin{align*}
-% (z - w)^{-1}&\int_{-\infty}^{\infty} \big\{e^{2\pi wt} - e^{2\pi zt}\big\} G(t)\ dt \\
-%  \uncover<2-| alert@2>{ &= 2\pi \int_{-\infty}^0 \bigg\{\int_t^0 e^{2\pi(z - w)u}\ du\bigg\} e^{2\pi wt} G(t)\ dt }\\
-%   \uncover<3-| alert@3>{ &\qquad - 2\pi \int_0^{\infty} \bigg\{\int_0^t e^{2\pi(z - w)u}\ du\bigg\} e^{2\pi wt} G(t)\ dt} \\
-%   \uncover<4-| alert@4>{  &= 2\pi \int_{-\infty}^0 \bigg\{\int_{-\infty}^u e^{2\pi wt} G(t)\ dt\bigg\} e^{2\pi(z - w)u}\ du }\\
-%   \uncover<5-| alert@5>{ &\qquad - 2\pi \int_0^{\infty} \bigg\{\int_u^{\infty} e^{2\pi wt} G(t)\ dt\bigg\} e^{2\pi(z - w)u}\ du } \\
-%   \uncover<6-| alert@6>{  &= 2\pi \int_{-\infty}^0 \bigg\{\int_{-\infty}^0 e^{2\pi w(t+u)} G(t+u)\ dt\bigg\} e^{2\pi(z - w)u}\ du } \\
-%   \uncover<7-| alert@7>{  &\qquad - 2\pi \int_0^{\infty} \bigg\{\int_0^{\infty} e^{2\pi w(t+u)} G(t+u)\ dt\bigg\} e^{2\pi(z - w)u}\ du}
-% \end{align*}
-
-% \end{frame}
-
-% \begin{frame}
-
-
-% \begin{tabular}{lcccc}
-% Class & A & B & C & D \\\hline
-% X & 1 & 2 & 3 & 4 \pause\\
-% Y & 3 & 4 & 5 & 6 \pause\\
-% Z & 5 & 6 & 7 & 8
-% \end{tabular}
-
-% \end{frame}
-
-% \begin{frame}[<+->]
-% \begin{theorem}
-% $A = B$.
-% \end{theorem}
-% \begin{proof}
-% \begin{itemize}
-% \item Clearly, $A = C$.
-% \item As shown earlier, $C = B$.
-% \item<3-> Thus $A = B$.
-% \end{itemize}
-% \end{proof}
-% \end{frame}
-
-% \begin{frame}{}
-%     \begin{theorem}
-%         $\Omega = \frac{\delta}{\Delta}$
-%     \end{theorem}
-%     \begin{animateinline}[controls,autoplay,loop]{2}
-% \multiframe{8}{n=1+1}{
-%   \begin{tikzpicture}[scale=10,rotate=90]
-%     \draw (-.1,-.2) rectangle (.4,0.2);
-%     \draw [blue,opacity=0.5,line width=0.1cm,line cap=round]
-%       l-system [l-system={A,axiom=A,order=\n,angle=45,step=0.25cm}];
-%   \end{tikzpicture}    
-% }
-% \end{animateinline}
-% \end{frame}
+\begin{frame}{Current Limitations}
+    \begin{itemize}
+        \item This is not super general
+        \item One-seasonal
+    \end{itemize}
+\end{frame}
 
 \end{document}
