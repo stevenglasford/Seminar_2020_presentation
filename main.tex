@@ -247,16 +247,40 @@
 \end{frame}
 
 \begin{frame}{Example and Basic Parameters}
-    We use Finite Difference Method.\newline
-    
-    Second-order time discretization \newline
+    We use Finite Difference Method,\newline
+    Second-order time discretization, \newline
+    Find the saddle strategies.\newline
     
     ROC-HJ \cite{ROCHJ2019}.
+    
+    \begin{figure}[ht]
+        \inputminted[
+            frame=lines,
+            framesep=2mm,
+            baselinestretch=1.2,
+            fontsize=\footnotesize,
+            firstline=15, 
+            lastline=17]{c}{code/data.h}
+        \caption{Configurations of descriptive variables}
+        \label{code:defaults}
+    \end{figure}
 \end{frame}
 
 % \subsection{Output}
 \begin{frame}{Output}
-    
+    ROC-HJ produces a large amount of data in .dat files.
+    \begin{figure}[ht]
+        \inputminted[
+            frame=lines,
+            framesep=2mm,
+            baselinestretch=1.2,
+            fontsize=\footnotesize,
+            firstline=1, 
+            lastline=10]{c}{code/VF20.dat}
+        \caption{The first 10 lines from when $\tau=20$ produced from ROC-HJ.}
+        \label{code:datfile}
+    \end{figure}
+    Needs to graphed to produce meaningful results.
 \end{frame}
 
 \section{Graphs and Analysis}
