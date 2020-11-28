@@ -1,0 +1,721 @@
+\NeedsTeXFormat{LaTeX2e}%
+\ProvidesPackage{shurick}[2008/06/05 V2.29 Shurick's Macro Package]
+
+%
+% История изменений
+%
+% 2.29 - 05/06/2008
+% * Добавлен оператор \erf.
+%
+% 2.28 - 18/04/2008
+% * Удалено "пространство по умолчанию" у скалярного произведения и нормы.
+%
+% 2.27 - 16/03/2008
+% * Удалены всевозможные атавизмы.
+%
+% 2.24 - 21/04/2007
+%
+% * Удалены окружения piecewise, system (вместо них использовать cases).
+%
+% 2.23 - 08/01/2007
+%
+% * Команды \cross, \triple.
+%
+% 2.22 - 28/09/2006
+%
+% * Добавлены команды \arcsinh, \arccosh, \arctanh, \arccoth.
+%
+% 2.21 - 22/05/2006
+%
+% * Добавлены команды \NOD, \NOK.
+%
+% 2.20 - 13/05/2006
+%
+% * Добавлена команда \cone.
+%
+% 2.19 - 30/04/2006
+%
+% * Добавлена команда \extr.
+%
+% 2.18 - 05/01/2006
+%
+% * Опция a&t для совместимости с пакетом "Автоматика и телемеханика".
+% * Команды \tg, \ctg удалены, так как они входят в пакет babel.
+% * Определение команды \Prob скопировано из babel, чтобы не возникало конфликтов.
+%
+% 2.17 - 17/02/2005
+%
+% * Удалены опции eurler, noeurler.
+% * Опция noams разбита на части: noams, fakeams, noamsthm.
+% * Опция ieee для совместимости с пакетами ieee.
+%
+% 2.16 - 29/06/2004
+%
+% * Команда \x исправлена, чтобы не возникало лишнего пробела перед скобками.
+%
+% 2.15 - 13/08/2003
+%
+% * Добавлена команда \meas
+%
+% 2.14 - 09/05/2003
+%
+% * Добавлена команда \ball
+%
+% 2.13 - 18/01/2003
+%
+% * Добавлена команда \sign, окружение union.
+%
+% 2.12 - 12/05/2002
+%
+% * Добавлен алфавит \bf... для маленьких букв
+% * Добавлена команда \grad
+%
+% 2.11 - 31/03/2002
+%
+% * Добавлены команды \p, \sqrtfrac
+%
+% 2.10 - 25/03/2002
+%
+% * Добавлена команда \codim
+%
+% 2.09 - 14/03/2002
+%
+% * Добавлена команда \diag
+%
+% 2.08 - 26/04/2001
+%
+% * Добавлен алфавит \bf...
+%
+% 2.07 - 18/04/2001
+%
+% * Добавлена опция elsevier для совместимости с классами Elsevier
+% * Добавлены команды \Nset, \Zset, \Qset, \Rset, \Cset, \Hset
+%   (по аналогии с Elsevier)
+% * Добавлены команды \half, \threehalf, \quart , \third
+%   (по аналогии с Elsevier)
+% * Добавлены команды \D, \e
+%   (по аналогии с Elsevier)
+% * Исправлена команда \Diff, чтобы дифференциалы были прямым шрифтом
+%
+% 2.06 - 19/03/2001
+%
+% * Исправлена команда \circacc
+%
+% 2.05 - 03/01/2001
+%
+% * Добавлена команда \suite (набор)
+%
+% 2.04 - 29/10/2000
+%
+% * Добавлена команда \ellipsoid (обозначение эллипсоида).
+%
+% 2.03 - 22/08/2000
+%
+% * Добавлена команда \dotminus (геометрическая разность).
+%
+% 2.02 - 14/05/2000
+%
+% * Исправлена ошибка в командах \diff и \Diff, из-за которой
+%   нельзя было использовать верхние индексы в аргументах.
+%
+% 2.01 - 08/05/2000
+%
+% * Переопределена команда \inf, так чтобы у нее нижний индекс находился на
+%   том же уровне, что и у \sup
+% * Добавлены команды \hatvec, \tildevec (двойные индексы)
+% * Добавлена команда \Diff (полная производная)
+% * У команд \diff и \Diff добавлен необязательный аргумент [n], означающий
+%   порядок производной
+% * Убраны команды \set и \setclass
+% * Команды \setdescript и \funcdecript переименованы соответственно в
+%   \set и \func (старые имена сохранены для совместимости)
+% * Добавлена команда \superdiff (супердифференциал)
+%
+
+% -----------------------------------------------------------------------------------
+% Опции
+% -----------------------------------------------------------------------------------
+
+\newif\ifUseAms\UseAmstrue
+\newif\ifUseAmsThm\UseAmsThmtrue
+\newif\ifElsevier\Elsevierfalse
+\newif\ifIEEE\IEEEfalse
+\newif\ifAT\ATfalse
+
+% elsevier
+%
+% совместимость с классами Elsevier
+\DeclareOption{elsevier}{
+    \message{[elsevier]}
+    \Elseviertrue
+    \UseAmsThmfalse}
+
+% ieee
+%
+% совместимость с классами IEEE
+\DeclareOption{ieee}{
+    \message{[ieee]}
+    \IEEEtrue
+    \UseAmsThmfalse}
+
+% a&t
+%
+% совместимость с классом a&t
+\DeclareOption{a&t}{
+    \message{[a&t]}
+    \ATtrue
+    \UseAmsThmfalse}
+
+% noams
+%
+% Не использовать пакеты из AMS LaTeX.
+\DeclareOption{noams}{
+  \message{[noams]}
+  \UseAmsfalse}
+
+% Обработка опций
+\ProcessOptions
+
+% -----------------------------------------------------------------------------------
+% Автоматическое подключение пакетов
+% -----------------------------------------------------------------------------------
+
+% Пакеты LaTeX
+\RequirePackage{array,latexsym}
+
+% Пакеты AMS LaTeX
+\ifUseAms
+  \RequirePackage{amsfonts,amssymb,amsmath,amsxtra}
+  \ifUseAmsThm
+    \RequirePackage{amsthm}
+  \fi
+
+  % Разрешить разбивать многострочные уравнения
+  \allowdisplaybreaks
+\fi
+
+
+% -----------------------------------------------------------------------------------
+% Elsevier
+% -----------------------------------------------------------------------------------
+
+% \D - дифференциал в интеграле
+\ifElsevier\newcommand{\D}{\d}\else\newcommand{\D}{d}\fi
+
+% \e - экспонента
+\ifElsevier\else\newcommand{\e}{e}\fi
+
+% \half, \threehalf, \quart, \third, \twothirds - маленькие дроби
+\ifElsevier\else\newcommand{\half}{{\frac{1}{2}}}\fi
+\ifElsevier\else\newcommand{\threehalf}{{\frac{3}{2}}}\fi
+\ifElsevier\else\newcommand{\quart}{{\frac{1}{4}}}\fi
+\newcommand{\third}{{\frac{1}{3}}}
+\newcommand{\twothirds}{{\frac{2}{3}}}
+\newcommand{\threequarts}{{\frac{3}{4}}}
+
+% -----------------------------------------------------------------------------------
+% Математические операции
+% -----------------------------------------------------------------------------------
+
+% \aff - аффинная оболочка множества
+\DeclareMathOperator{\aff}{aff}
+
+% \arccosh - гиперболический арккосинус
+\DeclareMathOperator{\arccosh}{arccosh}
+
+% \arccoth - гиперболический арккотангенс
+\DeclareMathOperator{\arccoth}{arccoth}
+
+% \arcsinh - гиперболический арксинус
+\DeclareMathOperator{\arcsinh}{arcsinh}
+
+% \arctanh - гиперболический арктангенс
+\DeclareMathOperator{\arctanh}{arctanh}
+
+% \Arg - аргумент
+\DeclareMathOperator*{\Arg}{Arg}
+
+% \Argmax - множество максимизирующих элементов
+\DeclareMathOperator*{\Argmax}{Arg\,max}
+
+% \argmax - максимизирующий элемент
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% \Argmin - множество минимизирующих элементов
+\DeclareMathOperator*{\Argmin}{Arg\,min}
+
+% \argmin - минимизирующий элемент
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% \cl - замыкание
+\DeclareMathOperator{\cl}{cl}
+
+% \codim - коразмерность
+\DeclareMathOperator{\codim}{codim}
+
+% \cone - коническая оболочка
+\DeclareMathOperator{\cone}{cone}
+
+% \conv - выпуклая оболочка
+\DeclareMathOperator{\conv}{conv}
+
+% \Cov - ковариация
+\DeclareMathOperator{\Cov}{Cov}
+
+% \cov - ковариация
+\DeclareMathOperator{\cov}{cov}
+
+% \diag - диагональная матрица
+\DeclareMathOperator{\diag}{diag}
+
+% \diam - диаметр
+\DeclareMathOperator{\diam}{diam}
+
+% \disp - дисперсия
+\DeclareMathOperator{\disp}{\sfD}
+
+% \dist - расстояние
+\DeclareMathOperator{\dist}{dist}
+
+% \Div - дивергенция
+%   NB: \div - это не дивергенция, а знак деления!
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\diverg}{div}
+
+% \dom - Эффективное множество (домен)
+\DeclareMathOperator{\dom}{dom}
+
+% \epi - надграфик функции
+\DeclareMathOperator{\epi}{epi}
+
+% \erf - функция ошибок
+\DeclareMathOperator{\erf}{erf}
+
+% \essinf - существенный инфимум
+\DeclareMathOperator*{\essinf}{ess\,inf}
+
+% \esssup - существенный супремум
+\DeclareMathOperator*{\esssup}{ess\,sup}
+
+% \expect - математическое ожидание
+\DeclareMathOperator{\expect}{\sfE}
+
+% \extr - экстремум
+\DeclareMathOperator{\extr}{extr}
+
+% \Fr - граница множества
+\DeclareMathOperator{\Fr}{Fr}
+
+% \grad - градиент
+\DeclareMathOperator{\grad}{grad}
+
+% \im - образ оператора
+\DeclareMathOperator{\im}{im}
+
+% \Imx - образ оператора
+%   NB: \Im - не образ, а мнимая часть
+\DeclareMathOperator{\Imx}{Im}
+
+% \inf - инфимум
+%
+\let\inf\relax
+\DeclareMathOperator*{\inf}{{inf\vphantom{sup}}}
+
+% \inflim - нижний предел
+\DeclareMathOperator*{\inflim}{\underline{lim}}
+
+% \interior - внутренность множества
+%   NB: \int - не внутренность, а интеграл!
+\DeclareMathOperator{\interior}{int}
+
+% \Ker - ядро оператора
+%   NB: команда \ker уже определена.
+\DeclareMathOperator{\Ker}{Ker}
+
+% \laplace - оператор Лапласа (дельта)
+\DeclareMathOperator{\laplace}{\Delta}
+
+% \Lin - линейная оболочка множества
+\DeclareMathOperator{\Lin}{Lin}
+
+% \lin - линейная оболочка множества
+\DeclareMathOperator{\lin}{\calL}
+
+% \meas - мера
+\DeclareMathOperator{\meas}{meas}
+
+% \NOD - наибольший общий делитель
+\let\NOD\relax
+\DeclareMathOperator{\NOD}{\text{НОД}}
+
+% \NOK - наибольшее общее кратное
+\let\NOK\relax
+\DeclareMathOperator{\NOK}{\text{НОК}}
+
+% \pr - проекция
+\DeclareMathOperator{\pr}{pr}
+
+% \prob - вероятность
+%
+\def\Prob{\mathop{\kern\z@\mathsf{P}}\nolimits}
+
+% \rank - ранг матрицы
+\DeclareMathOperator{\rank}{rank}
+
+% \ri - относительная внутренность множества
+\DeclareMathOperator{\ri}{ri}
+
+% \rot - ротор
+\DeclareMathOperator{\rot}{rot}
+
+% \sign - знак
+\DeclareMathOperator{\sign}{sign}
+
+% \subdiff - субдифференциал
+\newcommand{\subdiff}{{\partial^{-}}}
+
+% \superdiff - супердифференциал
+\newcommand{\superdiff}{{\partial^{+}}}
+
+% \suplim - верхний предел
+\DeclareMathOperator*{\suplim}{\overline{lim}}
+
+% \supp - носитель
+\DeclareMathOperator{\supp}{supp}
+
+% \trace - След матрицы
+\newcommand{\trace}{\tr}
+%   эти команды рекомендуется использовать косвенно через \trace:
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Spx}{Sp}
+
+% \Var - вариация
+\DeclareMathOperator*{\Var}{Var}
+
+% \var - вариация
+\DeclareMathOperator*{\var}{var}
+
+% \vraimax - существенный супремум
+\DeclareMathOperator*{\vraimax}{vrai\,max}
+
+% \vraimin - существенный инфимум
+\DeclareMathOperator*{\vraimin}{vrai\,min}
+
+% -----------------------------------------------------------------------------------
+% Обозначения стандартных множеств
+% -----------------------------------------------------------------------------------
+
+% \complex - множество комплексных чисел C
+\newcommand{\complex}{\bbC}
+\ifElsevier\else\newcommand{\Cset}{\complex}\fi
+
+% \integer - множество натуральных чисел Z
+\newcommand{\integer}{\bbZ}
+\ifElsevier\else\newcommand{\Zset}{\integer}\fi
+
+% \linear{X}{Y}  Множество линейных ограниченных операторов L(X -> Y)
+\newcommand{\linear}[2]{{{\mathcal L}\left({#1} \to {#2}\right)}}
+
+% \naturals - множество натуральных чисел N
+%   NB: \natural - не натуральные числа, а бекар
+\ifUseAms
+  \newcommand{\naturals}{\bbN}
+\else
+  \newcommand{\naturals}{{\rmI\! \rmN}}
+\fi
+\ifElsevier\else\newcommand{\Nset}{\naturals}\fi
+
+% \rational - множество рациональных чисел Q
+\newcommand{\rational}{\bbQ}
+\ifElsevier\else\newcommand{\Qset}{\rational}\fi
+
+% \real - множество вещественных чисел R
+\ifUseAms
+  \newcommand{\real}{\bbR}
+\else
+  \newcommand{\real}{{\rmI \! \rmR}}
+\fi
+\ifElsevier\else\newcommand{\Rset}{\real}\fi
+
+% \Hset - множество кватернионов H
+\newcommand{\quaternion}{\bbH}
+\ifElsevier\else\newcommand{\Hset}{\quaternion}\fi
+
+% -----------------------------------------------------------------------------------
+% Символы
+% -----------------------------------------------------------------------------------
+
+% \empty
+\renewcommand{\emptyset}{\varnothing}
+
+% \epsilon
+%\renewcommand{\epsilon}{\varepsilon}
+% \phi
+%\renewcommand{\phi}{\varphi}
+
+% \ge - больше или равно
+\ifUseAms \renewcommand{\ge}{\geqslant} \fi
+
+% \le - меньше или равно
+\ifUseAms \renewcommand{\le}{\leqslant} \fi
+
+% \longto - длинная стрелка вправо
+\newcommand{\longto}{\longrightarrow}
+
+
+% \unique - символ единственности
+\DeclareMathSymbol{\unique}{\mathord}{operators}{"21}
+
+% \const - константа
+\newcommand{\const}{{\mathrm{const}}}
+
+% \samedir - одинаково направленный
+\newcommand{\samedir}{\mathrel{\uparrow\uparrow}}
+
+% \oppositedir - противоположно направленный
+\newcommand{\oppositedir}{\mathrel{\uparrow\downarrow}}
+
+% Поверхностный интеграл
+\newcommand{\oiint}{\bigcirc \hspace{-0.6cm} \int \hspace{-0.25cm} \int}
+
+% -----------------------------------------------------------------------------------
+% Операции
+% -----------------------------------------------------------------------------------
+
+% \abs{x} - модуль
+\newcommand{\abs}[1]{\left\lvert {#1} \right\rvert}
+
+% \at{u}_{x = 0} - значение функции в точке
+\newcommand{\at}[1]{\left. {#1} \right|}
+
+% \ball{r} - шар радиуса r
+\newcommand{\ball}[2][\,\!]{{\calB_{#2}^{#1}}}
+
+% \diff[n]{f}{t} - частная производная d^nf/dt^n
+\newcommand{\diff}[3][\,\!]{{\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}}}
+
+% \Diff[n]{f}{t} - полная производная d^nf/dt^n
+\newcommand{\Diff}[3][\,\!]{{\frac{d^{#1} {#2}}{d {#3}^{#1}}}}
+
+% \dotminus - геометрическая разность
+\newcommand{\dotminus}{\mathop{\dot-}}
+
+% \ellipsoid{q}{Q} - эллипсоид E(q, Q)
+\newcommand{\ellipsoid}[2]{{\calE\left({#1}, {#2}\right)}}
+
+% \norm[пространство]{x} - норма
+\newcommand{\norm}[2][]
+  {{\left\@@shuNormLeft #2 \right\@@shuNormRight}\ifx#1\empty\else_{#1}\fi}
+
+% \setnormstyle{left}{right} - устанавливает скобки для нормы
+\newcommand{\setnormstyle}[2]
+  {\let\@@shuNormLeft\relax
+   \newcommand{\@@shuNormLeft}{#1}
+   \let\@@shuNormRight\relax
+   \newcommand{\@@shuNormRight}{#2}}
+
+\setnormstyle{\lVert}{\rVert}
+
+% \scalar[пространство]{x}{y} - скалярное произведение
+%   по умолчанию используется пространство, заданное командой
+\newcommand{\scalar}[3][]
+  {{\left\@@shuScalarLeft {#2}, {#3} \right\@@shuScalarRight}\ifx#1\empty\else_{#1}\fi}
+
+% \setscalarstyle{left}{right} - устанавливает скобки для скалярного произведения
+\newcommand{\setscalarstyle}[2]
+  {\let\@@shuScalarLeft\relax
+   \newcommand{\@@shuScalarLeft}{#1}
+   \let\@@shuScalarRight\relax
+   \newcommand{\@@shuScalarRight}{#2}}
+
+\setscalarstyle{\langle}{\rangle}
+
+% \cross{x}{y} - векторное произведение
+\newcommand{\cross}[2]{\left[ {#1}, {#2} \right]}
+
+% \triple{x}{y}{z} - смешанное произведение
+\newcommand{\triple}[3]{\left( {#1}, {#2}, {#3} \right)}
+
+% \suite{a, ..., z} - набор элементов (по умолчанию заключается в
+%   квадратные скобки)
+\newcommand{\suite}[1]
+  {{\left\@@shuSuiteLeft #1 \right\@@shuSuiteRight}}
+
+% \setsuitestyle{left}{right} - устанавливает скобки для набора
+\newcommand{\setsuitestyle}[2]
+  {\let\@@shuSuiteLeft\relax
+   \newcommand{\@@shuSuiteLeft}{#1}
+   \let\@@shuSuiteRight\relax
+   \newcommand{\@@shuSuiteRight}{#2}}
+
+\setsuitestyle{\langle}{\rangle}
+
+% \stackrelx{a}{->}{b} - расширенный вариант команды \stackrel
+\newcommand{\stackrelx}[3]
+  {\mathrel{\mathop{#2}\limits^{#1}_{#3}}}
+
+% -----------------------------------------------------------------------------------
+% Другие команды
+% -----------------------------------------------------------------------------------
+
+% Типы колонок C, R, L
+%
+% Типы колонок C, R, L соответствуют типам c, r, l, но использоваться
+% могут только в окружении array, при этом начальный размер текста
+% будет не \scriptstyle, а \displaystyle.
+\newcolumntype{C}{>{\displaystyle}c}
+\newcolumntype{R}{>{\displaystyle}r}
+\newcolumntype{L}{>{\displaystyle}l}
+
+% \x({...}) - скобки нужного размера
+% DEPRECATED!!!
+\newcommand{\x}[3]{{\left #1 {#2} \right #3}}
+
+% \almost{=} - почти всюду
+\newcommand{\almost}[1]{\stackrel{\text{\itshape \cyrp.\cyrv.}}{#1}}
+
+% \almostforall - почти для всех
+\newcommand{\almostforall}{\forall\text{\itshape \cyrp.\cyrv.\/}\:}
+
+% \circacc{M} - кружок над формулой
+\newcommand{\circacc}[1]{{\overset{\circ}{#1}}\vphantom{#1}}
+
+% \set{x}{x < 0} - описание множества
+\newcommand{\set}[2]
+  {\if*#1
+    {\left\{ #2 \right\}}\else
+    {\left\{ \left.#1 \vphantom{#2} \; \right| \; #2 \right\}}\fi}
+\let\setdescript\set
+
+% \setof{x_n} - множество {x_n}
+\newcommand{\setof}[1]{\set*{#1}}
+
+% \func - аргументы функции вида (a | b)
+\newcommand{\func}[2]
+  {\left( \left.#1 \vphantom{#2} \; \right| \; #2 \right)}
+\let\funcdescript\func
+
+% Дополнительные акценты
+\newcommand{\hatvec}[1]{\Hat{\vec{#1}}}
+\newcommand{\tildevec}[1]{\Tilde{\vec{#1}}}
+
+% Средства для набора систем
+\newcolumntype{s}{@{}c@{}}
+\newcommand{\sygn}[1]{&{}#1{}&}
+
+% Двойное и тройное подчёркивание
+\newcommand{\dblunderline}[1]{\underline{\underline{#1}}}
+\newcommand{\trplunderline}[1]{\underline{\underline{\underline{#1}}}}
+
+% -----------------------------------------------------------------------------------
+% Алфавиты
+% -----------------------------------------------------------------------------------
+
+% \mathitbf - математический жирный курсив
+\DeclareMathAlphabet{\mathitbf}{OML}{cmm}{b}{it}
+
+% \mathcal - рукописный
+\newcommand{\calA}{{\mathcal A}} \newcommand{\calB}{{\mathcal B}}
+\newcommand{\calC}{{\mathcal C}} \newcommand{\calD}{{\mathcal D}}
+\newcommand{\calE}{{\mathcal E}} \newcommand{\calF}{{\mathcal F}}
+\newcommand{\calG}{{\mathcal G}} \newcommand{\calH}{{\mathcal H}}
+\newcommand{\calI}{{\mathcal I}} \newcommand{\calJ}{{\mathcal J}}
+\newcommand{\calK}{{\mathcal K}} \newcommand{\calL}{{\mathcal L}}
+\newcommand{\calM}{{\mathcal M}} \newcommand{\calN}{{\mathcal N}}
+\newcommand{\calO}{{\mathcal O}} \newcommand{\calP}{{\mathcal P}}
+\newcommand{\calQ}{{\mathcal Q}} \newcommand{\calR}{{\mathcal R}}
+\newcommand{\calS}{{\mathcal S}} \newcommand{\calT}{{\mathcal T}}
+\newcommand{\calU}{{\mathcal U}} \newcommand{\calV}{{\mathcal V}}
+\newcommand{\calW}{{\mathcal W}} \newcommand{\calX}{{\mathcal X}}
+\newcommand{\calY}{{\mathcal Y}} \newcommand{\calZ}{{\mathcal Z}}
+
+% \mathbb - жирный пустой (blackboard)
+\newcommand{\bbA}{{\mathbb A}} \newcommand{\bbB}{{\mathbb B}}
+\newcommand{\bbC}{{\mathbb C}} \newcommand{\bbD}{{\mathbb D}}
+\newcommand{\bbE}{{\mathbb E}} \newcommand{\bbF}{{\mathbb F}}
+\newcommand{\bbG}{{\mathbb G}} \newcommand{\bbH}{{\mathbb H}}
+\newcommand{\bbI}{{\mathbb I}} \newcommand{\bbJ}{{\mathbb J}}
+\newcommand{\bbK}{{\mathbb K}} \newcommand{\bbL}{{\mathbb L}}
+\newcommand{\bbM}{{\mathbb M}} \newcommand{\bbN}{{\mathbb N}}
+\newcommand{\bbO}{{\mathbb O}} \newcommand{\bbP}{{\mathbb P}}
+\newcommand{\bbQ}{{\mathbb Q}} \newcommand{\bbR}{{\mathbb R}}
+\newcommand{\bbS}{{\mathbb S}} \newcommand{\bbT}{{\mathbb T}}
+\newcommand{\bbU}{{\mathbb U}} \newcommand{\bbV}{{\mathbb V}}
+\newcommand{\bbW}{{\mathbb W}} \newcommand{\bbX}{{\mathbb X}}
+\newcommand{\bbY}{{\mathbb Y}} \newcommand{\bbZ}{{\mathbb Z}}
+
+% \mathbf - жирный
+\newcommand{\bfA}{{\mathbf A}} \newcommand{\bfB}{{\mathbf B}}
+\newcommand{\bfC}{{\mathbf C}} \newcommand{\bfD}{{\mathbf D}}
+\newcommand{\bfE}{{\mathbf E}} \newcommand{\bfF}{{\mathbf F}}
+\newcommand{\bfG}{{\mathbf G}} \newcommand{\bfH}{{\mathbf H}}
+\newcommand{\bfI}{{\mathbf I}} \newcommand{\bfJ}{{\mathbf J}}
+\newcommand{\bfK}{{\mathbf K}} \newcommand{\bfL}{{\mathbf L}}
+\newcommand{\bfM}{{\mathbf M}} \newcommand{\bfN}{{\mathbf N}}
+\newcommand{\bfO}{{\mathbf O}} \newcommand{\bfP}{{\mathbf P}}
+\newcommand{\bfQ}{{\mathbf Q}} \newcommand{\bfR}{{\mathbf R}}
+\newcommand{\bfS}{{\mathbf S}} \newcommand{\bfT}{{\mathbf T}}
+\newcommand{\bfU}{{\mathbf U}} \newcommand{\bfV}{{\mathbf V}}
+\newcommand{\bfW}{{\mathbf W}} \newcommand{\bfX}{{\mathbf X}}
+\newcommand{\bfY}{{\mathbf Y}} \newcommand{\bfZ}{{\mathbf Z}}
+
+\newcommand{\bfa}{{\mathbf a}} \newcommand{\bfb}{{\mathbf b}}
+\newcommand{\bfc}{{\mathbf c}} \newcommand{\bfd}{{\mathbf d}}
+\newcommand{\bfe}{{\mathbf e}} \newcommand{\bff}{{\mathbf f}}
+\newcommand{\bfg}{{\mathbf g}} \newcommand{\bfh}{{\mathbf h}}
+\newcommand{\bfi}{{\mathbf i}} \newcommand{\bfj}{{\mathbf j}}
+\newcommand{\bfk}{{\mathbf k}} \newcommand{\bfl}{{\mathbf l}}
+\newcommand{\bfm}{{\mathbf m}} \newcommand{\bfn}{{\mathbf n}}
+\newcommand{\bfo}{{\mathbf o}} \newcommand{\bfp}{{\mathbf p}}
+\newcommand{\bfq}{{\mathbf q}} \newcommand{\bfr}{{\mathbf r}}
+\newcommand{\bfs}{{\mathbf s}} \newcommand{\bft}{{\mathbf t}}
+\newcommand{\bfu}{{\mathbf u}} \newcommand{\bfv}{{\mathbf v}}
+\newcommand{\bfw}{{\mathbf w}} \newcommand{\bfx}{{\mathbf x}}
+\newcommand{\bfy}{{\mathbf y}} \newcommand{\bfz}{{\mathbf z}}
+
+% \mathfrak - готический
+\newcommand{\frakA}{{\mathfrak A}} \newcommand{\frakB}{{\mathfrak B}}
+\newcommand{\frakC}{{\mathfrak C}} \newcommand{\frakD}{{\mathfrak D}}
+\newcommand{\frakE}{{\mathfrak E}} \newcommand{\frakF}{{\mathfrak F}}
+\newcommand{\frakG}{{\mathfrak G}} \newcommand{\frakH}{{\mathfrak H}}
+\newcommand{\frakI}{{\mathfrak I}} \newcommand{\frakJ}{{\mathfrak J}}
+\newcommand{\frakK}{{\mathfrak K}} \newcommand{\frakL}{{\mathfrak L}}
+\newcommand{\frakM}{{\mathfrak M}} \newcommand{\frakN}{{\mathfrak N}}
+\newcommand{\frakO}{{\mathfrak O}} \newcommand{\frakP}{{\mathfrak P}}
+\newcommand{\frakQ}{{\mathfrak Q}} \newcommand{\frakR}{{\mathfrak R}}
+\newcommand{\frakS}{{\mathfrak S}} \newcommand{\frakT}{{\mathfrak T}}
+\newcommand{\frakU}{{\mathfrak U}} \newcommand{\frakV}{{\mathfrak V}}
+\newcommand{\frakW}{{\mathfrak W}} \newcommand{\frakX}{{\mathfrak X}}
+\newcommand{\frakY}{{\mathfrak Y}} \newcommand{\frakZ}{{\mathfrak Z}}
+
+% \mathsf - санссериф
+\newcommand{\sfA}{{\mathsf A}} \newcommand{\sfB}{{\mathsf B}}
+\newcommand{\sfC}{{\mathsf C}} \newcommand{\sfD}{{\mathsf D}}
+\newcommand{\sfE}{{\mathsf E}} \newcommand{\sfF}{{\mathsf F}}
+\newcommand{\sfG}{{\mathsf G}} \newcommand{\sfH}{{\mathsf H}}
+\newcommand{\sfI}{{\mathsf I}} \newcommand{\sfJ}{{\mathsf J}}
+\newcommand{\sfK}{{\mathsf K}} \newcommand{\sfL}{{\mathsf L}}
+\newcommand{\sfM}{{\mathsf M}} \newcommand{\sfN}{{\mathsf N}}
+\newcommand{\sfO}{{\mathsf O}} \newcommand{\sfP}{{\mathsf P}}
+\newcommand{\sfQ}{{\mathsf Q}} \newcommand{\sfR}{{\mathsf R}}
+\newcommand{\sfS}{{\mathsf S}} \newcommand{\sfT}{{\mathsf T}}
+\newcommand{\sfU}{{\mathsf U}} \newcommand{\sfV}{{\mathsf V}}
+\newcommand{\sfW}{{\mathsf W}} \newcommand{\sfX}{{\mathsf X}}
+\newcommand{\sfY}{{\mathsf Y}} \newcommand{\sfZ}{{\mathsf Z}}
+
+% \mathrm - прямой шрифт
+\newcommand{\rmA}{{\mathrm A}} \newcommand{\rmB}{{\mathrm B}}
+\newcommand{\rmC}{{\mathrm C}} \newcommand{\rmD}{{\mathrm D}}
+\newcommand{\rmE}{{\mathrm E}} \newcommand{\rmF}{{\mathrm F}}
+\newcommand{\rmG}{{\mathrm G}} \newcommand{\rmH}{{\mathrm H}}
+\newcommand{\rmI}{{\mathrm I}} \newcommand{\rmJ}{{\mathrm J}}
+\newcommand{\rmK}{{\mathrm K}} \newcommand{\rmL}{{\mathrm L}}
+\newcommand{\rmM}{{\mathrm M}} \newcommand{\rmN}{{\mathrm N}}
+\newcommand{\rmO}{{\mathrm O}} \newcommand{\rmP}{{\mathrm P}}
+\newcommand{\rmQ}{{\mathrm Q}} \newcommand{\rmR}{{\mathrm R}}
+\newcommand{\rmS}{{\mathrm S}} \newcommand{\rmT}{{\mathrm T}}
+\newcommand{\rmU}{{\mathrm U}} \newcommand{\rmV}{{\mathrm V}}
+\newcommand{\rmW}{{\mathrm W}} \newcommand{\rmX}{{\mathrm X}}
+\newcommand{\rmY}{{\mathrm Y}} \newcommand{\rmZ}{{\mathrm Z}}
+
+\endinput
