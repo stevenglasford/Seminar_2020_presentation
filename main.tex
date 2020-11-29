@@ -21,7 +21,7 @@
 %\usetheme{Helsinki}
 
 \author{Steven Glasford}
-\title{Modeling a Fungal War on a Plant.}
+\title{Modeling a Fungal Competition on a Plant.}
 \date{\today}
 %\thanks{Dr. Ivan Yegorov}
 
@@ -63,12 +63,12 @@
     \end{center}
 \end{frame}
 
-\begin{frame}{What is a fungal war?}
+\begin{frame}{What is fungal competition?}
     We will be looking at parasitic pathogenic fungi, such as leaf rust or maple tar spots. \newline
     
     Limited resources, fighting for resources, not each other.\newline
     
-    The host has finite resources; fungus wants to eat all of the leaves.
+    The host has finite resources and fungus does not want to kill plant (loses all of its food).
     
     \begin{center}
         \includegraphics[ width = 7cm, height = 4.6cm ]{Figure_poplar_leaf_rust.pdf}
@@ -92,7 +92,7 @@
 \begin{frame}{Description of fungal equations.}
     We focus on a single season, on a single plant, without evolution. \newline
     
-    Unrealistic in the wild (wild is complicated), we can still get useful results.
+    Unrealistic in the wild (wild is complicated), we can still get useful results, especially in laboratory conditions.
 
     \begin{center}
         \includegraphics[ width = 10.5cm, height = 6cm ]{Figure_scheme.pdf}
@@ -129,7 +129,7 @@
 \begin{frame}{Uninvadable strategies}
     The cohorts are not fighting each other. They are fighting for limited resources. \newline
     
-    The war forms a zero-sum feedback game: the resident defends, the mutant is offensive. \newline
+    The competition forms a zero-sum feedback game: the resident defends, the mutant is offensive. \newline
     
     We assume that the cohorts use an uninvadable strategy. Each cohort tries its best and tries to ensure the other cohort does not fully invade. \newline
     
@@ -174,12 +174,12 @@
 
     We use computers to simulate this system. \newline
     
-    We can convert our equations into Hamilton--Jacobi--Isaac equation (HJI). \newline
+    We can convert our equations into Hamilton--Jacobi--Isaacs equation (HJI). \newline
     
     We can then solve the HJI with ROC-HJ (Reachability, Optimal Control, and Hamilton-Jacobi equations).
 \end{frame}
 
-\begin{frame}{Hamilton--Jacobi--Isaac equation}
+\begin{frame}{Hamilton--Jacobi--Isaacs equation}
     For brevity, we exclude the reasoning behind converting to a Hamiltonian. 
     \cite{YegorovGrognardMailleretHalkettBernhard2019} contain further information \newline
     
@@ -198,7 +198,7 @@
 \end{frame}
 
 \begin{frame}{Resource Control Strategy}
-    The Hamiltonian reduces to the following:
+    The Hamiltonian minimax (maximin) condition reduces to the following:
     \begin{equation*}\resizebox{\hsize}{!}{
         \begin{aligned}
             & u_1(t, M_1, M_2) \:\: = \:\: 
@@ -222,7 +222,7 @@
         \end{aligned}  
         \label{16}
     }\end{equation*}
-    Where $u_1$ corresponds to the resource strategy for cohort 1 (resident), and $u_2$ fits cohort 2 (mutant).
+    Where $u_1$ corresponds to the resource allocation strategy for cohort 1 (resident), and $u_2$ fits cohort 2 (mutant).
 \end{frame}
 
 \begin{frame}{Reverse Time}
@@ -322,7 +322,7 @@
         \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5c_2.pdf}
     \end{center}
 
-White is mycelia growth, gray is spore production.
+White is mycelial growth, gray is spore production.
 
 \end{frame}
 
@@ -331,7 +331,7 @@ White is mycelia growth, gray is spore production.
         \center{ 
             \includegraphics[width = 0.98 \textwidth]{figures/Figure_7.pdf} 
         }
-        \bf \caption{\it The four control turnpike switching surfaces in the three-dimensional space~$ (m_1, m_2, \tau) $. A turnpike is the most efficient route in which the cohort can obtain the outcome it desires.}
+        \bf \caption{\it The four control turnpike switching surfaces in the three-dimensional space~$ (m_1, m_2, \tau) $. A turnpike is the most efficient route in order to reach the steady-state equilibrium.}
         \label{Fig_7}
     \end{figure}
 \end{frame}
