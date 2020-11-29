@@ -51,9 +51,9 @@
 \begin{frame}{Pathogens are costly.}
     Pathogens make living things sick. \newline
     
-    COVID-19 is a very important pathogen. \newline
+    COVID-19 is a significant pathogen. \newline
     
-    Pathogens can end up costing gigantic loses. \newline
+    Pathogens can end up costing gigantically. \newline
     
     2016 alone saw \$540 billion in agricultural damages from plant pathogens. 
     
@@ -68,7 +68,7 @@
     
     Limited resources, fighting for resources, not each other.\newline
     
-    Host has finite resources, fungus wants to eat the leaf.
+    The host has finite resources; fungus wants to eat all of the leaves.
     
     \begin{center}
         \includegraphics[ width = 7cm, height = 4.6cm ]{Figure_poplar_leaf_rust.pdf}
@@ -76,9 +76,9 @@
 \end{frame}
 
 \begin{frame}{Closer inspection of Fungi}
-    Pathogens in mind exploit leaf tissue. \newline
+    The pathogens we will be investigating exploit leaf tissue. \newline
 
-    Growth in the leaf is conducted using mycelia. \newline
+    Mycelia expand into the current leaf.  \newline
 
     Spore production gets to more leaves.
 
@@ -101,7 +101,7 @@
 
 % \subsection{Assumptions}
 \begin{frame}{Convert to equations}
-    Using the information from the previous slide we can get:
+    Using the information from the previous slide, we can get:
     
     $$ 
     \left\{ \begin{aligned}
@@ -117,24 +117,23 @@
 \begin{frame}{Assumptions}
     $n$ is the lesion density and is constant. \newline
     
-    The nutrient flux is represented as
     $$
     f(M) \: \stackrel{\mathrm{def}}{=} \: \nu(n M) \, \rho(M),
     $$
-    where $\rho(M)$ is the amount of resources that flow through a single mycelium. $ \nu(n M) $ describes the negative influence of competing mycelia. \newline
+    is the nutrient flux. Where $\rho(M)$ is the amount of resources that flow through a single mycelium. $ \nu(n M) $ describes the negative influence of competing mycelia. \newline
     
     We will assume the resident is cohort 1, and the mutant is cohort 2.
 \end{frame}
 
 % \subsection{Equations}
 \begin{frame}{Uninvadable strategies}
-    The cohorts are not actually fighting each other, they are fighting for limited resources. \newline
+    The cohorts are not fighting each other. They are fighting for limited resources. \newline
     
-    The war forms a zero-sum feedback game: resident defends, mutant is offensive. \newline
+    The war forms a zero-sum feedback game: the resident defends, the mutant is offensive. \newline
     
-    We assume that the cohorts use uninvadable strategy, each cohort tries it's best and tries to ensure the other cohort does not fully invade. \newline
+    We assume that the cohorts use an uninvadable strategy. Each cohort tries its best and tries to ensure the other cohort does not fully invade. \newline
     
-    An uninvadable strategy is also known as evolutionary stable strategy.
+    An uninvadable strategy is also known as an evolutionarily stable strategy.
 \end{frame}
 
 
@@ -145,12 +144,12 @@
     
     We can then say that the resident is not invaded if: $$ \: J(u_1, u_2) \: \stackrel{\mathrm{def}}{=} \: J_2(u_1, u_2) - J_1(u_1, u_2) \: \leqslant \: 0. $$ \newline
     
-    We are most interested in modeling when $J$ forms a saddle point (ie $J = 0$).
+    We are most interested in modeling when $J$ forms a saddle point (i.e., $J = 0$).
     
 \end{frame}
 
 \begin{frame}{Differential Game}
-    The previous slides gives us the following:
+    The previous slides give us the following:
     $$
     \begin{aligned}
     & J(u_1(\cdot), u_2(\cdot)) \:\: = \:\: J_2(u_1(\cdot), u_2(\cdot)) \: - \: J_1(u_1(\cdot), u_2(\cdot)) \:\: = \\
@@ -181,7 +180,8 @@
 \end{frame}
 
 \begin{frame}{Hamilton--Jacobi--Isaac equation}
-    For brevity we exclude the reasoning behind converting to a Hamiltonian. Additional information can be found in \cite{YegorovGrognardMailleretHalkettBernhard2019}.\newline
+    For brevity, we exclude the reasoning behind converting to a Hamiltonian. 
+    \cite{YegorovGrognardMailleretHalkettBernhard2019} contain further information \newline
     
     \begin{equation*}\resizebox{\hsize}{!}{
         \left\{ 
@@ -198,7 +198,7 @@
 \end{frame}
 
 \begin{frame}{Resource Control Strategy}
-    The Hamiltonian can be reduced to the following:
+    The Hamiltonian reduces to the following:
     \begin{equation*}\resizebox{\hsize}{!}{
         \begin{aligned}
             & u_1(t, M_1, M_2) \:\: = \:\: 
@@ -222,11 +222,11 @@
         \end{aligned}  
         \label{16}
     }\end{equation*}
-    Where $u_1$ corresponds to the resource strategy for cohort 1 (resident), and $u_2$ corresponds to the strategy for cohort 2 (mutant).
+    Where $u_1$ corresponds to the resource strategy for cohort 1 (resident), and $u_2$ fits cohort 2 (mutant).
 \end{frame}
 
 \begin{frame}{Reverse Time}
-    ROC-HJ works backwards (enables user to start with an outcome and see how it started). \newline
+    ROC-HJ works backward (enables the user to start with an outcome and see how it started). \newline
     
     We must rewrite our equations in reverse.
     
@@ -251,7 +251,7 @@
 \end{frame}
 
 \begin{frame}{Example and Basic Parameters}
-    We use Finite Difference Method,\newline
+    We use the Finite Difference Method,\newline
     Second-order time discretization, \newline
     Find the saddle strategies.\newline
     
@@ -281,11 +281,11 @@
             fontsize=\footnotesize,
             firstline=1, 
             lastline=5]{c}{code/VF20_100.dat}
-        \caption{The first 5 lines from when $\tau=20$ produced from ROC-HJ.}
+        \caption{The first five lines from when $\tau=20$ produced from ROC-HJ.}
         \label{code:datfile}
     \end{figure}
-    Describes the angle, and magnitude at a point, very large file 500k+ lines.\newline
-    Needs to graphed to produce meaningful results.
+    describes a point on a plane and the direction of the vector.\newline
+    It needs to be graphed to produce meaningful results.
 \end{frame}
 
 \section{Graphs and Analysis}
@@ -331,7 +331,7 @@ White is mycelia growth, gray is spore production.
         \center{ 
             \includegraphics[width = 0.98 \textwidth]{figures/Figure_7.pdf} 
         }
-        \bf \caption{\it The four control turnpike switching surfaces in the three-dimensional space~$ (m_1, m_2, \tau) $. A turnpike is the most efficient route in which the cohort can go in order to obtain the outcome it desires.}
+        \bf \caption{\it The four control turnpike switching surfaces in the three-dimensional space~$ (m_1, m_2, \tau) $. A turnpike is the most efficient route in which the cohort can obtain the outcome it desires.}
         \label{Fig_7}
     \end{figure}
 \end{frame}
@@ -340,7 +340,7 @@ White is mycelia growth, gray is spore production.
 % \subsection{Analysis, and Limitations}
 \begin{frame}{Model Limitations}
     \begin{itemize}
-        \item This is not super general
+        \item Our model is not super general.
         \item One-seasonal
         \item No evolution (plant or fungal)
         \item Single plant
@@ -360,7 +360,7 @@ White is mycelia growth, gray is spore production.
     
     We looked at strategies for nearly equivalent fungi competing with each other, fighting for resources. \newline
     
-    Thank you Ivan Yegorov!
+    Thank you, Dr. Ivan Yegorov!
     
 \end{frame}
 
