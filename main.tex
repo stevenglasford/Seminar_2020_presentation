@@ -183,7 +183,7 @@
 \begin{frame}{Hamilton--Jacobi--Isaac equation}
     For brevity we exclude the reasoning behind converting to a Hamiltonian. Additional information can be found in \cite{YegorovGrognardMailleretHalkettBernhard2019}.\newline
     
-    \begin{equation}
+    \begin{equation*}\resizebox{\hsize}{!}{
         \left\{ 
             \begin{aligned}
                 & \frac{\partial V(t, M_1, M_2)}{\partial t} \: + \: \mathcal{H}
@@ -194,12 +194,12 @@
             \end{aligned} 
         \right.  
         \label{15}
-    \end{equation}
+    }\end{equation*}
 \end{frame}
 
 \begin{frame}{Resource Control Strategy}
     The Hamiltonian can be reduced to the following:
-    \begin{equation}
+    \begin{equation*}\resizebox{\hsize}{!}{
         \begin{aligned}
             & u_1(t, M_1, M_2) \:\: = \:\: 
             \begin{cases}
@@ -221,7 +221,7 @@
             \end{cases}
         \end{aligned}  
         \label{16}
-    \end{equation}
+    }\end{equation*}
     Where $u_1$ corresponds to the resource strategy for cohort 1 (resident), and $u_2$ corresponds to the strategy for cohort 2 (mutant)
 \end{frame}
 
@@ -230,14 +230,16 @@
     
     We must rewrite our equations in reverse.
     
-    \begin{equation}
+    \begin{equation*}\resizebox{\hsize}{!}{
         \left\{ 
             \begin{aligned}
                 & \frac{\partial V(T - \tau, M_1, M_2)}{\partial \tau}    \:\: + \:\:
                 \max_{u_1 \in [0, 1]} \: \min_{u_2 \in [0, 1]} \:
-                \left( -H \left( T - \tau, \, M_1, \, M_2, \, u_1, \, u_2, 
-                {}^{{}^{{}^{{}^{{}^{}}}}} \right. \right. \\
-                & \qquad\qquad\qquad\qquad\qquad
+                \left( -H \left( T - \tau, \, M_1, \, M_2, \, u_1, \, \\
+                & \qquad
+                u_2, 
+                % {}^{{}^{{}^{{}^{{}^{}}}}}
+                \right. \right. 
                 \left. \left. \frac{\partial V(T - \tau, M_1, M_2)}{\partial M_1}, \,
                 \frac{\partial V(T - \tau, M_1, M_2)}{\partial M_2}     \right) \right) \:\: =
                 \:\: 0, \\
@@ -245,7 +247,7 @@
                 & \tau \in [0, T], \quad (M_1, M_2) \: \in \: G,
             \end{aligned} 
         \right.  \label{75}
-    \end{equation}
+    }\end{equation*}
 \end{frame}
 
 \begin{frame}{Example and Basic Parameters}
