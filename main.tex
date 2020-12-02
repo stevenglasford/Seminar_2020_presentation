@@ -64,7 +64,8 @@
 \end{frame}
 
 \begin{frame}{What is fungal competition?}
-    We will be looking at parasitic pathogenic fungi, such as leaf rust or maple tar spots. \newline
+    We will be looking at parasitic pathogenic fungi, such as leaf rust. 
+    When you can see the rust it is in the spore producing phase.\newline
     
     Limited resources, fighting for resources, not each other.\newline
     
@@ -78,7 +79,7 @@
 \begin{frame}{Closer inspection of Fungi}
     The pathogens we will be investigating exploit leaf tissue. \newline
 
-    Mycelia expand into the current leaf.  \newline
+    Mycelia expand into the current leaf. Latency period as it makes investment in growth  \newline
 
     Spore production gets to more leaves.
 
@@ -112,17 +113,26 @@
     & M_1(0) = M_1^0, \quad M_2(0) = M_2^0.
     \end{aligned} \right.
     $$
+    
+    These are the resource allocation strategies.\newline
+    
+    When $u = 0$ mycelial production, $u = 1$ spore production.
+    A little of both when in between between 1 and 0.
 \end{frame}
 
 \begin{frame}{Assumptions}
-    $n$ is the lesion density and is constant. \newline
+    $n$ is the lesion density and is assumed to be constant for simplicity. \newline
     
     $$
     f(M) \: \stackrel{\mathrm{def}}{=} \: \nu(n M) \, \rho(M),
     $$
-    is the nutrient flux. Where $\rho(M)$ is the amount of resources that flow through a single mycelium. $ \nu(n M) $ describes the negative influence of competing mycelia. \newline
+    is the nutrient flux. \newline
     
-    We will assume the resident is cohort 1, and the mutant is cohort 2.
+    $\rho(M)$ is amount of resources flowing through a single mycelium.
+    
+    $ \nu(n M) $ describes the negative influence of competing mycelia. \newline
+    
+    We assume the resident is cohort 1, and the mutant is cohort 2.
 \end{frame}
 
 % \subsection{Equations}
@@ -133,7 +143,7 @@
     
     We assume that the cohorts use an uninvadable strategy. Each cohort tries its best and tries to ensure the other cohort does not fully invade. \newline
     
-    An uninvadable strategy is also known as an evolutionarily stable strategy.
+    An uninvadable strategy is also known as an evolutionary stable strategy.
 \end{frame}
 
 
@@ -142,9 +152,11 @@
     Let $ J_i $ be the marginal fitness (the amount of success of cohort $i$)
     $$J_i(u_1, u_2) = \: \int\limits_{I_T} u_i(t) f_i(M_1(t), M_2(t)) \, \delta \, e^{-\mu t} \, dt \: $$ of cohort~$ i $. \newline
     
-    We can then say that the resident is not invaded if: $$ \: J(u_1, u_2) \: \stackrel{\mathrm{def}}{=} \: J_2(u_1, u_2) - J_1(u_1, u_2) \: \leqslant \: 0. $$ \newline
+    We can then say that the resident is not invaded if: $$ \: J(u_1, u_2) \: \stackrel{\mathrm{def}}{=} \: J_2(u_1, u_2) - J_1(u_1, u_2) \: \leqslant \: 0. $$ 
     
-    We are most interested in modeling when $J$ forms a saddle point (i.e., $J = 0$).
+    We are most interested in modeling when $J$ forms a saddle point (i.e., $J = 0$).\newline
+    
+    Further derivation and analysis of $J$ can be found in \cite{YegorovGrognardMailleretHalkettBernhard2019}
     
 \end{frame}
 
@@ -163,14 +175,14 @@
     
     $\inf$ is the infimum (greatest) $\sup$ is the supremum (least).\newline
     
-    $\inf\sup=\sup\inf$ describes a saddle point.
+    $\inf\sup=\sup\inf$ describes a saddle point (unstable equilibrium).
     
 \end{frame}
 
 \section{Execution and Code}
 % \subsection{Code.}
 \begin{frame}{Numerical Analysis}
-    The equations we are working with are nonsmooth, making them difficult to solve exactly. \newline
+    The equations we are working with are nonsmooth, and nonlinear making them difficult to solve exactly. Numerical analysis is essential \newline
 
     We use computers to simulate this system. \newline
     
@@ -182,6 +194,8 @@
 \begin{frame}{Hamilton--Jacobi--Isaacs equation}
     For brevity, we exclude the reasoning behind converting to a Hamiltonian. 
     \cite{YegorovGrognardMailleretHalkettBernhard2019} contain further information \newline
+    
+    \mathcal{H} is the Hamiltonian, describes the minimax/maximin (saddle point) of J.
     
     \begin{equation*}\resizebox{\hsize}{!}{
         \left\{ 
@@ -289,7 +303,22 @@
 \end{frame}
 
 \section{Graphs and Analysis}
+
 \begin{frame}{Graphs 1/3}
+    \begin{center}
+        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5a_1.pdf}
+        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5a_2.pdf} \\
+        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5b_1.pdf}
+        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5b_2.pdf} \\
+        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5c_1.pdf}
+        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5c_2.pdf}
+    \end{center}
+
+White is mycelial growth, gray is spore production.
+
+\end{frame}
+
+\begin{frame}{Graphs 2/3}
     \begin{figure}
         \centering
         \begin{subfigure}{.48 \textwidth}
@@ -312,20 +341,6 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{Graphs 2/3}
-    \begin{center}
-        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5a_1.pdf}
-        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5a_2.pdf} \\
-        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5b_1.pdf}
-        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5b_2.pdf} \\
-        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5c_1.pdf}
-        \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5c_2.pdf}
-    \end{center}
-
-White is mycelial growth, gray is spore production.
-
-\end{frame}
-
 \begin{frame}{Graphs 3/3}
     \begin{figure}
         \center{ 
@@ -335,6 +350,8 @@ White is mycelial growth, gray is spore production.
         \label{Fig_7}
     \end{figure}
 \end{frame}
+
+
 
 \section{Conclusion}
 % \subsection{Analysis, and Limitations}
@@ -351,7 +368,7 @@ White is mycelial growth, gray is spore production.
     
     More research is needed to investigate more dynamic systems.\newline
     
-    Still very useful.
+    Still very useful, sets a benchmark to test against in future analysis.
 \end{frame}
 
 
