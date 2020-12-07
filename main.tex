@@ -46,7 +46,7 @@
 
 
 % Section `Introduction'; sections are defined outside of frames. They may lead to the automatic inclusion of additional frames, see above.
-\section{Introduction}
+\section{What is a pathogen?}
 % \subsection{Motivation}
 \begin{frame}{Pathogens are costly.}
     Pathogens make living things sick. \newline
@@ -79,9 +79,10 @@
 \begin{frame}{Closer inspection of Fungi}
     The pathogens we will be investigating exploit leaf tissue. \newline
 
-    Mycelia expand into the current leaf. Latency period as it makes investment in growth  \newline
+    % Mycelia expand into the current leaf. 
+    Latency period as fungus makes investment in mycelial growth.  \newline
 
-    Spore production gets to more leaves.
+    % Spore production gets to more leaves.
 
     \begin{center}
         \includegraphics[ width = 9.5cm, height = 5cm ]{Figure_biotrophic_pathogens.pdf}
@@ -113,15 +114,17 @@
     & M_1(0) = M_1^0, \quad M_2(0) = M_2^0.
     \end{aligned} \right.
     $$
-    
+    \pause
     These are the resource allocation strategies.\newline
+    
+    \pause
     
     When $u = 0$ mycelial production, $u = 1$ spore production.
     A little of both when in between between 1 and 0.
 \end{frame}
 
 \begin{frame}{Assumptions}
-    $n$ is the lesion density and is assumed to be constant for simplicity. \newline
+    $n$ is the lesion density and is assumed to be constant for simplicity. \newline\pause
     
     $$
     f(M) \: \stackrel{\mathrm{def}}{=} \: \nu(n M) \, \rho(M),
@@ -130,18 +133,18 @@
     
     $\rho(M)$ is amount of resources flowing through a single mycelium.
     
-    $ \nu(n M) $ describes the negative influence of competing mycelia. \newline
+    $ \nu(n M) $ describes the negative influence of competing mycelia. \newline\pause
     
     We assume the resident is cohort 1, and the mutant is cohort 2.
 \end{frame}
 
 % \subsection{Equations}
 \begin{frame}{Uninvadable strategies}
-    The cohorts are not fighting each other. They are fighting for limited resources. \newline
+    The cohorts are not fighting each other. They are fighting for limited resources. \newline\pause
     
-    The competition forms a zero-sum feedback game: the resident defends, the mutant is offensive. \newline
+    The competition forms a zero-sum feedback game: the resident defends, the mutant is offensive. \newline\pause
     
-    We assume that the cohorts use an uninvadable strategy. Each cohort tries its best and tries to ensure the other cohort does not fully invade. \newline
+    We assume that the cohorts use an uninvadable strategy. Each cohort tries its best and tries to ensure the other cohort does not fully invade. \newline\pause
     
     An uninvadable strategy is also known as an evolutionary stable strategy.
 \end{frame}
@@ -150,9 +153,9 @@
 % \subsection{Method of solving.}
 \begin{frame}{Uninvadable equations}
     Let $ J_i $ be the marginal fitness (the amount of success of cohort $i$)
-    $$J_i(u_1, u_2) = \: \int\limits_{I_T} u_i(t) f_i(M_1(t), M_2(t)) \, \delta \, e^{-\mu t} \, dt \: $$ of cohort~$ i $. \newline
+    $$J_i(u_1, u_2) = \: \int\limits_{I_T} u_i(t) f_i(M_1(t), M_2(t)) \, \delta \, e^{-\mu t} \, dt \: $$ of cohort~$ i $. \newline\pause
     
-    We can then say that the resident is not invaded if: $$ \: J(u_1, u_2) \: \stackrel{\mathrm{def}}{=} \: J_2(u_1, u_2) - J_1(u_1, u_2) \: \leqslant \: 0. $$ 
+    We can then say that the resident is not invaded if: $$ \: J(u_1, u_2) \: \stackrel{\mathrm{def}}{=} \: J_2(u_1, u_2) - J_1(u_1, u_2) \: \leqslant \: 0. $$ \pause
     
     We are most interested in modeling when $J$ forms a saddle point (i.e., $J = 0$).\newline
     
@@ -170,10 +173,10 @@
     \\& \longrightarrow \:\: \inf_{u_1(\cdot)} \: \sup_{u_2(\cdot)} \:\: \mbox{or} \:\:
     \sup_{u_2(\cdot)} \: \inf_{u_1(\cdot)} \, ,
     \end{aligned}
-    $$ 
+    $$ \pause
     this describes how the first cohort tries to maximize its resistance to the second, and vice versa.\newline
     
-    $\inf$ is the infimum (greatest) $\sup$ is the supremum (least).\newline
+    $\inf$ is the infimum (lower bound) $\sup$ is the supremum (upper bound).\newline
     
     $\inf\sup=\sup\inf$ describes a saddle point (unstable equilibrium).
     
@@ -182,22 +185,22 @@
 \section{Execution and Code}
 % \subsection{Code.}
 \begin{frame}{Numerical Analysis}
-    The equations we are working with are nonsmooth, and nonlinear making them difficult to solve exactly. Numerical analysis is essential \newline
+    The equations we are working with are nonsmooth, and nonlinear making them difficult to solve exactly. Numerical analysis is essential \newline\pause
 
-    We use computers to simulate this system. \newline
+    We use computers to simulate this system. \newline\pause
     
-    We can convert our equations into Hamilton--Jacobi--Isaacs equation (HJI). \newline
+    We can convert our equations into Hamilton--Jacobi--Isaacs equation (HJI). \newline\pause
     
     We can then solve the HJI with ROC-HJ (Reachability, Optimal Control, and Hamilton-Jacobi equations).
 \end{frame}
 
 \begin{frame}{Hamilton--Jacobi--Isaacs equation}
-    For brevity, we exclude the reasoning behind converting to a Hamiltonian. 
-    \cite{YegorovGrognardMailleretHalkettBernhard2019} contain further information \newline
+    For brevity, we exclude the reasoning behind converting to a Hamiltonian.\newline\pause
     
     \mathcal{H} is the Hamiltonian, describes the minimax/maximin (saddle point) of J.
     
-    \begin{equation*}\resizebox{\hsize}{!}{
+    \begin{equation*}
+    \resizebox{\hsize}{!}{
         \left\{ 
             \begin{aligned}
                 & \frac{\partial V(t, M_1, M_2)}{\partial t} \: + \: \mathcal{H}
@@ -208,7 +211,8 @@
             \end{aligned} 
         \right.  
         \label{15}
-    }\end{equation*}
+    }
+    \end{equation*}
 \end{frame}
 
 \begin{frame}{Resource Control Strategy}
@@ -236,11 +240,11 @@
         \end{aligned}  
         \label{16}
     }\end{equation*}
-    Where $u_1$ corresponds to the resource allocation strategy for cohort 1 (resident), and $u_2$ fits cohort 2 (mutant).
+    where $u_1$ corresponds to the resource allocation strategy for cohort 1 (resident), and $u_2$ fits cohort 2 (mutant).
 \end{frame}
 
 \begin{frame}{Reverse Time}
-    ROC-HJ works backward (enables the user to start with an outcome and see how it started). \newline
+    ROC-HJ works backward (enables the user to start with an outcome and see how it started). \newline\pause
     
     We must rewrite our equations in reverse.
     
@@ -284,9 +288,10 @@
     \end{figure}
 \end{frame}
 
+
 % \subsection{Output}
 \begin{frame}{Output}
-    ROC-HJ produces a large amount of data in .dat files.
+    ROC-HJ produces a large amount of data in .dat files.\pause
     \begin{figure}[ht]
         \inputminted[
             frame=lines,
@@ -298,13 +303,23 @@
         \caption{The first five lines from when $\tau=20$ produced from ROC-HJ.}
         \label{code:datfile}
     \end{figure}
-    describes a point on a plane and the direction of the vector.\newline
+    describes a point on a plane (x,y) and the direction of the vector.\newline
     It needs to be graphed to produce meaningful results.
 \end{frame}
 
 \section{Graphs and Analysis}
 
-\begin{frame}{Graphs 1/3}
+\begin{frame}{Graphs 1/4}
+    % $t=48.825$ is a sort of inflection point.
+    
+    \begin{center}
+        \includegraphics[ height = .37\textwidth]{Figure_5c_1.pdf}
+        \includegraphics[ height = .37\textwidth]{Figure_5c_2.pdf}
+    \end{center}
+    
+\end{frame}
+
+\begin{frame}{Graphs 2/4}
     \begin{center}
         \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5a_1.pdf}
         \includegraphics[ width = 4cm, height = 2.3cm ]{Figure_5a_2.pdf} \\
@@ -318,7 +333,7 @@ White is mycelial growth, gray is spore production.
 
 \end{frame}
 
-\begin{frame}{Graphs 2/3}
+\begin{frame}{Graphs 3/4}
     \begin{figure}
         \centering
         \begin{subfigure}{.48 \textwidth}
@@ -341,7 +356,7 @@ White is mycelial growth, gray is spore production.
     \end{figure}
 \end{frame}
 
-\begin{frame}{Graphs 3/3}
+\begin{frame}{Graphs 4/4}
     \begin{figure}
         \center{ 
             \includegraphics[width = 0.98 \textwidth]{figures/Figure_7.pdf} 
@@ -357,23 +372,23 @@ White is mycelial growth, gray is spore production.
 % \subsection{Analysis, and Limitations}
 \begin{frame}{Model Limitations}
     \begin{itemize}
-        \item Our model is not super general.
-        \item One-seasonal
-        \item No evolution (plant or fungal)
-        \item Single plant
-        \item Ignores plant diversity 
-        \item Ignores plant regrowth and other tolerances
-        \item Ignores actual fighting between fungi (some fungi produce toxins to kill opponents)
+        \item Our model is not super general.\pause
+        \item One-seasonal\pause
+        \item No evolution (plant or fungal)\pause
+        \item Single plant\pause
+        \item Ignores plant diversity \pause
+        \item Ignores plant regrowth and other tolerances\pause
+        \item Ignores actual fighting between fungi (some fungi produce toxins to kill opponents)\pause
     \end{itemize}
     
-    More research is needed to investigate more dynamic systems.\newline
+    \vspace{.4cm}More research is needed to investigate more dynamic systems.\newline
     
     Still very useful, sets a benchmark to test against in future analysis.
 \end{frame}
 
 
 \begin{frame}{End statements}
-    Future analysis will include further analysis and inclusion of previously stated limitations.\newline
+    Future analysis will include previously stated factors.\newline\pause
     
     We looked at strategies for nearly equivalent fungi competing with each other, fighting for resources. \newline
     
